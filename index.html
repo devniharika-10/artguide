@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArtGallery Guide - Understanding Art Galleries</title>
+    <meta name="description" content="Your comprehensive guide to understanding art galleries - what they are, how they work, and how to appreciate art.">
+    <meta name="keywords" content="art gallery, art education, gallery guide, contemporary art, modern art">
+    <meta name="author" content="ArtGallery Guide">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f9fa;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 10px; }
+        
+        /* Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            padding: 15px 0;
+        }
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+            transition: all 0.3s;
+        }
+        .logo-icon:hover {
+            transform: rotate(10deg) scale(1.05);
+        }
+        .logo-text {
+            font-size: 22px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Playfair Display', serif;
+        }
+        .nav-link {
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .nav-link:hover {
+            color: #667eea !important;
+            transform: translateY(-2px);
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 80%;
+        }
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            padding: 10px 0;
+        }
+        .dropdown-item {
+            padding: 8px 20px;
+            transition: all 0.3s;
+        }
+        .dropdown-item:hover {
+            background: linear-gradient(135deg, #667eea10, #764ba210);
+            transform: translateX(5px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 140px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+            animation: float 15s infinite reverse;
+        }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(30px, 20px) rotate(10deg); }
+        }
+        .hero-content { position: relative; z-index: 2; }
+        .hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; }
+        .hero .btn { padding: 12px 30px; border-radius: 50px; font-weight: 600; transition: all 0.3s; }
+        .hero .btn-light:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        
+        /* Section Headers */
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .section-header p { color: #666; font-size: 1.1rem; }
+        
+        /* Feature Cards */
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.4s;
+            height: 100%;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea20, #764ba220);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            transition: all 0.3s;
+        }
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        .feature-icon i { font-size: 2.5rem; color: #667eea; transition: all 0.3s; }
+        .feature-card:hover .feature-icon i { color: white; }
+        .feature-card h4 { font-size: 1.3rem; font-weight: 700; margin-bottom: 15px; }
+        .feature-card p { color: #666; line-height: 1.6; }
+        
+        /* Statistics Section */
+        .stats-section {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 60px 0;
+            margin: 60px 0;
+        }
+        .stat-card { text-align: center; color: white; cursor: pointer; transition: all 0.3s; }
+        .stat-card:hover { transform: translateY(-5px); }
+        .stat-number { font-size: 3rem; font-weight: 800; }
+        .stat-label { font-size: 1rem; opacity: 0.9; }
+        
+        /* Gallery Type Cards */
+        .type-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s;
+            height: 100%;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            cursor: pointer;
+        }
+        .type-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .type-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: all 0.4s;
+        }
+        .type-card:hover img { transform: scale(1.05); }
+        .type-card .card-body { padding: 25px; }
+        .type-card h5 { font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            border-left: 3px solid #667eea;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+        .timeline-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -39px;
+            top: 25px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #667eea;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #667eea;
+        }
+        .timeline-item h5 { font-weight: 700; color: #667eea; }
+        
+        /* Newsletter Section */
+        .newsletter {
+            background: linear-gradient(135deg, #667eea10, #764ba210);
+            padding: 60px 0;
+            border-radius: 30px;
+            margin: 50px 0;
+        }
+        .newsletter .btn { border-radius: 50px; padding: 12px 30px; font-weight: 600; }
+        
+        /* Footer */
+        .footer {
+            background: #1a1a2e;
+            color: white;
+            padding: 60px 0 30px;
+        }
+        .footer h5 { font-weight: 700; margin-bottom: 20px; }
+        .footer a { color: #aaa; text-decoration: none; transition: all 0.3s; }
+        .footer a:hover { color: #667eea; transform: translateX(5px); display: inline-block; }
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        .social-icons a:hover { background: #667eea; transform: translateY(-3px); }
+        
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        .back-to-top.show { opacity: 1; visibility: visible; }
+        .back-to-top:hover { transform: translateY(-5px); }
+        
+        /* Cookie Consent */
+        .cookie-consent {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: #1a1a2e;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            z-index: 1001;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        .cookie-consent .btn-sm { border-radius: 20px; padding: 5px 15px; }
+        
+        /* Loading Skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .section-header h2 { font-size: 1.8rem; }
+            .stat-number { font-size: 2rem; }
+            .cookie-consent { flex-direction: column; text-align: center; }
+        }
+        
+        /* Print Styles */
+        @media print {
+            .navbar, .footer, .back-to-top, .newsletter, .stats-section, .cookie-consent { display: none; }
+            body { background: white; }
+        }
+        
+        /* Text Gradient */
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">
+            <div class="logo-icon"><i class="fas fa-palette"></i></div>
+            <span class="logo-text">ArtGallery Guide</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html">About Galleries</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Types</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="contemporary.html">Contemporary Art</a></li>
+                        <li><a class="dropdown-item" href="modern.html">Modern Art</a></li>
+                        <li><a class="dropdown-item" href="classical.html">Classical Art</a></li>
+                        <li><a class="dropdown-item" href="sculpture.html">Sculpture Gardens</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="virtual.html">Virtual Galleries</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Resources</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="articles.html">Art Articles</a></li>
+                        <li><a class="dropdown-item" href="howitworks.html">How Galleries Work</a></li>
+                        <li><a class="dropdown-item" href="famous.html">Famous Galleries</a></li>
+                        <li><a class="dropdown-item" href="careers.html">Art Careers</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="visit.html">Plan Visit</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container hero-content">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <h1>Discover the World of Art Galleries</h1>
+                <p class="lead mb-4">Your comprehensive guide to understanding art galleries, their operations, and how to appreciate art like a pro.</p>
+                <div class="hero-buttons">
+                    <a href="about.html" class="btn btn-light me-3">Start Exploring</a>
+                    <a href="virtual.html" class="btn btn-outline-light">Take Virtual Tour</a>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block">
+                <img src="ArtGalleryInterior.jpg" alt="Art Gallery Interior" class="img-fluid rounded-4 shadow" loading="lazy">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- What is an Art Gallery -->
+<div class="container my-5 pt-4">
+    <div class="row align-items-center">
+        <div class="col-lg-6">
+            <h2 class="fw-bold mb-4">What is an <span class="text-gradient">Art Gallery?</span></h2>
+            <p class="lead">An art gallery is a space where visual art is displayed, preserved, and shared with the public.</p>
+            <ul class="list-unstyled mt-4">
+                <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i> Exhibition spaces for artists to showcase their work</li>
+                <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i> Commercial venues for buying and selling art</li>
+                <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i> Cultural hubs for community engagement</li>
+                <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i> Educational centers for art appreciation</li>
+                <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i> Preservation spaces for cultural heritage</li>
+            </ul>
+        </div>
+        <div class="col-lg-6">
+            <img src="GalleryExhibition.jpg" alt="Gallery Exhibition" class="img-fluid rounded-4 shadow" loading="lazy">
+        </div>
+    </div>
+</div>
+
+<!-- How Galleries Work -->
+<div class="container my-5">
+    <div class="section-header">
+        <h2>How Art Galleries Work</h2>
+        <p>The inner workings of the art world explained</p>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-search"></i></div>
+                <h4>Discovery & Curation</h4>
+                <p>Galleries scout talented artists and curate collections that tell compelling stories.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-handshake"></i></div>
+                <h4>Artist Representation</h4>
+                <p>Galleries represent artists, managing careers and organizing exhibitions.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-tag"></i></div>
+                <h4>Sales & Commissions</h4>
+                <p>When art sells, galleries take a commission (typically 40-60%).</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Statistics Section -->
+<div class="stats-section">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3">
+                <div class="stat-card" onclick="showStatInfo('galleries')">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Galleries Worldwide</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card" onclick="showStatInfo('artworks')">
+                    <div class="stat-number">2M+</div>
+                    <div class="stat-label">Artworks Exhibited</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card" onclick="showStatInfo('artists')">
+                    <div class="stat-number">100K+</div>
+                    <div class="stat-label">Represented Artists</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card" onclick="showStatInfo('visitors')">
+                    <div class="stat-number">500M+</div>
+                    <div class="stat-label">Annual Visitors</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Types of Galleries -->
+<div class="container my-5">
+    <div class="section-header">
+        <h2>Types of Art Galleries</h2>
+        <p>Explore different gallery experiences</p>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-3">
+            <div class="type-card" onclick="location.href='contemporary.html'">
+                <img src="ContemporaryArtGallery.jpg" alt="Contemporary Art Gallery" loading="lazy">
+                <div class="card-body">
+                    <h5>Contemporary Art</h5>
+                    <p>Modern & current artistic expressions</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="type-card" onclick="location.href='modern.html'">
+                <img src="ModernArtGallery.jpg" alt="Modern Art Gallery" loading="lazy">
+                <div class="card-body">
+                    <h5>Modern Art</h5>
+                    <p>Art from 1860s-1970s revolution</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="type-card" onclick="location.href='classical.html'">
+                <img src="ClassicalArtGallery.jpg" alt="Classical Art Gallery" loading="lazy">
+                <div class="card-body">
+                    <h5>Classical Art</h5>
+                    <p>Historical masterpieces</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="type-card" onclick="location.href='virtual.html'">
+                <img src="VirtualGallery.jpg" alt="Virtual Gallery" loading="lazy">
+                <div class="card-body">
+                    <h5>Virtual Galleries</h5>
+                    <p>Online art experiences</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Timeline Section -->
+<div class="container my-5">
+    <div class="section-header">
+        <h2>What to Expect When Visiting</h2>
+        <p>A step-by-step guide to your gallery experience</p>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h5>1. Arrival & Reception</h5>
+                    <p>Greeted by gallery staff, receive exhibition information</p>
+                </div>
+                <div class="timeline-item">
+                    <h5>2. Self-Guided Exploration</h5>
+                    <p>View artworks at your own pace, read wall texts</p>
+                </div>
+                <div class="timeline-item">
+                    <h5>3. Guided Tour (Optional)</h5>
+                    <p>Join a docent-led tour for deeper insights</p>
+                </div>
+                <div class="timeline-item">
+                    <h5>4. Artist Talk (Special Events)</h5>
+                    <p>Meet artists and discuss their work</p>
+                </div>
+                <div class="timeline-item">
+                    <h5>5. Purchase Inquiries</h5>
+                    <p>Speak with staff about available artworks</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Newsletter Section -->
+<div class="container">
+    <div class="newsletter text-center">
+        <h3 class="mb-3">Never Miss an Article</h3>
+        <p class="mb-4">Subscribe to our newsletter for weekly art insights and gallery guides.</p>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input type="email" class="form-control form-control-lg" id="newsletterEmail" placeholder="Enter your email address" style="border-radius: 50px 0 0 50px;">
+                    <button class="btn btn-primary" onclick="subscribeNewsletter()" style="border-radius: 0 50px 50px 0;">Subscribe</button>
+                </div>
+                <small class="text-muted mt-2 d-block">We respect your privacy. Unsubscribe at any time.</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <h5>About ArtGallery Guide</h5>
+                <p>Your comprehensive resource for understanding art galleries, their operations, and how to appreciate art.</p>
+            </div>
+            <div class="col-md-4 mb-4">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="about.html">About Galleries</a></li>
+                    <li><a href="howitworks.html">How Galleries Work</a></li>
+                    <li><a href="famous.html">Famous Galleries</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 mb-4">
+                <h5>Connect With Us</h5>
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+        <hr class="bg-secondary">
+        <div class="text-center">
+            <p class="mb-0">&copy; 2026 ArtGallery Guide. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Back to Top Button -->
+<div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
+<!-- Cookie Consent -->
+<div class="cookie-consent" id="cookieConsent">
+    <span>🍪 We use cookies to enhance your learning experience. By continuing, you agree to our <a href="#" style="color: #667eea;">Privacy Policy</a>.</span>
+    <button class="btn btn-primary btn-sm" onclick="acceptCookies()">Accept</button>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        const backToTop = document.querySelector('.back-to-top');
+        if (window.scrollY > 100) {
+            navbar.classList.add('scrolled');
+            backToTop.classList.add('show');
+        } else {
+            navbar.classList.remove('scrolled');
+            backToTop.classList.remove('show');
+        }
+    });
+    
+    // Stat info function
+    function showStatInfo(type) {
+        const messages = {
+            'galleries': 'There are over 50,000 art galleries worldwide, from small artist-run spaces to international blue-chip galleries.',
+            'artworks': 'Millions of artworks are exhibited in galleries annually, ranging from emerging artists to museum-quality pieces.',
+            'artists': 'Over 100,000 artists are represented by galleries globally, with many more showing in alternative spaces.',
+            'visitors': 'Art galleries welcome over 500 million visitors each year, making art one of the most visited cultural activities.'
+        };
+        alert(messages[type]);
+    }
+    
+    // Newsletter subscription
+    function subscribeNewsletter() {
+        const email = document.getElementById('newsletterEmail').value;
+        if (email && email.includes('@')) {
+            alert('Thank you for subscribing! Check your email for confirmation.');
+            document.getElementById('newsletterEmail').value = '';
+            // Store subscription in localStorage
+            localStorage.setItem('newsletterSubscribed', 'true');
+        } else {
+            alert('Please enter a valid email address.');
+        }
+    }
+    
+    // Cookie consent
+    function acceptCookies() {
+        document.getElementById('cookieConsent').style.display = 'none';
+        localStorage.setItem('cookiesAccepted', 'true');
+    }
+    
+    // Check for existing cookie consent
+    if (localStorage.getItem('cookiesAccepted') === 'true') {
+        document.getElementById('cookieConsent').style.display = 'none';
+    }
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+    
+    // Lazy loading images
+    const images = document.querySelectorAll('img[loading="lazy"]');
+    if ('loading' in HTMLImageElement.prototype) {
+        images.forEach(img => img.setAttribute('loading', 'lazy'));
+    }
+    
+    // Page transition effect
+    window.addEventListener('beforeunload', function() {
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.3s';
+    });
+    
+    window.addEventListener('load', function() {
+        document.body.style.opacity = '1';
+    });
+</script>
+</body>
+</html>
